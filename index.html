@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متصفح سوبر المدمج - Super Browser VPN</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body { font-family: Arial, sans-serif; background: #121212; color: white; margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; }
+        
+        /* شريط تحكم المتصفح العلوي */
+        .browser-header { background: #1e1e1e; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border-bottom: 2px solid #333; }
+        .vpn-select { background: #292929; color: #00e676; border: 1px solid #00e676; padding: 8px; border-radius: 5px; font-weight: bold; cursor: pointer; outline: none; }
+        .url-bar { flex: 1; min-width: 200px; padding: 8px 12px; border-radius: 5px; border: 1px solid #444; background: #292929; color: white; font-size: 14px; }
+        .go-btn { background: #00e676; color: black; border: none; padding: 8px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .go-btn:hover { background: #00c853; }
+        
+        /* شريط الحالة */
+        .status-bar { background: #1a1a1a; padding: 5px 12px; font-size: 12px; color: #aaa; text-align: right; border-bottom: 1px solid #222; }
+        .status-dot { inline-block; width: 8px; height: 8px; background: #ff1744; border-radius: 50%; margin-left: 5px; display: inline-block; }
+        .status-dot.active { background: #00e676; }
+
+        /* منطقة عرض المواقع المشفرة */
+        .webview-container { flex: 1; width: 100%; background: white; border: none; }
+        iframe { width: 100%; height: 100%; border: none; background: white; }
+    </style>
+</head>
+<body>
+
+    <div class="browser-header">
+        <select id="countrySelect" class="vpn-select">
+            <option value="us">🇺🇸 أمريكا (USA)</option>
+            <option value="de">🇩🇪 ألمانيا (Germany)</option>
+            <option value="fr">🇫🇷 فرنسا (France)</option>
+            <option value="sy">🇸🇾 سوريا (دمشق - افتراضي)</option>
+            <option value="lb">🇱🇧 لبنان (Lebanon)</option>
+            <option value="eg">🇪🇬 مصر (Egypt)</option>
+            <option value="jo">🇯🇴 الأردن (Jordan)</option>
+            <option value="ru">🇷🇺 روسيا (Russia)</option>
+            <option value="tr">🇹🇷 تركيا (Turkey)</option>
+            <option value="se">🇸🇪 السويد (Sweden)</option>
+            <option value="ch">🇨🇭 سويسرا (Switzerland)</option>
+            <option value="au">🇦🇺 أستراليا (Australia)</option>
+            <option value="in">🇮🇳 الهند (India)</option>
+        </select>
+        
+        <input type="text" id="urlInput" class="url-bar" placeholder="اكتب اسم الموقع هنا واضغط انطلق... (مثال: google.com)">
+        <button id="goBtn" class="go-btn">انطلق وتصفح</button>
+    </div>
+
+    <div class="status-bar">
+        <span id="statusDot" class="status-dot"></span>
+        <span id="statusText">الحالة: تصفح مباشر (بدون حماية)</span>
+    </div>
+
+    <div class="webview-container">
+        <iframe id="browserFrame" src="about:blank"></iframe>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
