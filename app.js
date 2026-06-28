@@ -23,24 +23,25 @@ function launchSecureBrowser() {
     let targetUrl = urlInput.value.trim();
     if (!targetUrl) return;
 
-    // إصلاح الرابط تلقائياً
+    // إصلاح الرابط تلقائياً إذا لم يكتب المستخدم البروتوكول
     if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
         targetUrl = 'https://' + targetUrl;
     }
 
+    const selectedCountryCode = countrySelect.value;
     const selectedCountryName = countrySelect.options[countrySelect.selectedIndex].text;
 
-    // تحديث شريط الحالة
+    // تحديث شريط الحالة على الواجهة
     statusDot.classList.add('active');
-    statusText.innerText = `متصل عبر سيرفر منزلك - جاري تشفير: ${selectedCountryName}`;
+    statusText.innerText = `متصل عبر سيرفر منزلك - جاري التوجيه عبر: ${selectedCountryName}`;
     statusText.style.color = "#00e676";
 
-    // رابط السيرفر الخاص بكمبيوترك
+    // 🔴 رابط السيرفر الخاص بكمبيوترك (تأكد أنه نفس الرابط المكتوب في شاشة الـ cmd الثانية)
     const myComputerServer = "https://cool-melons-wash.loca.lt"; 
     
-    // توجيه الطلب المشفر عبر كمبيوترك الخاص مباشرة
-    const finalUrl = `${myComputerServer}/?url=${encodeURIComponent(targetUrl)}`;
+    // دمج الرابط المطلوب مع رمز الدولة المختارة لإرسالها إلى الـ server.js الخاص بك
+    const finalUrl = `${myComputerServer}/?url=${encodeURIComponent(targetUrl)}&country=${selectedCountryCode}`;
     
-    // فتح النافذة بنجاح وتخطي كل حجب
+    // فتح النافذة الجديدة عبر النفق المشفر لتخطي الحجب وتغيير الـ IP
     window.open(finalUrl, '_blank');
 }
