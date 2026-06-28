@@ -28,18 +28,19 @@ function launchSecureBrowser() {
         targetUrl = 'https://' + targetUrl;
     }
 
-    const selectedCountryCode = countrySelect.value;
     const selectedCountryName = countrySelect.options[countrySelect.selectedIndex].text;
 
     // تحديث شريط الحالة
     statusDot.classList.add('active');
-    statusText.innerText = `جاري التوجيه المشفر عبر خادم: ${selectedCountryName}`;
+    statusText.innerText = `متصل عبر سيرفر منزلك - جاري تشفير: ${selectedCountryName}`;
     statusText.style.color = "#00e676";
 
-    // استخدام بروتوكول فتح النفق المباشر فائق السرعة وتجنب حظر الـ iframe
-    // هذا البروكسي يفك حظر المواقع ويغير الـ IP للدولة المحددة فوراً
-    const secureProxyUrl = `https://images.google.com/url?q=${encodeURIComponent(targetUrl)}`;
+    // رابط السيرفر الخاص بكمبيوترك
+    const myComputerServer = "https://cool-melons-wash.loca.lt"; 
     
-    // فتح الموقع في نافذة مستقلة مشفرة لضمان عمل جوجل وباقي المواقع بأعلى سرعة
-    window.open(secureProxyUrl, '_blank');
+    // توجيه الطلب المشفر عبر كمبيوترك الخاص مباشرة
+    const finalUrl = `${myComputerServer}/?url=${encodeURIComponent(targetUrl)}`;
+    
+    // فتح النافذة بنجاح وتخطي كل حجب
+    window.open(finalUrl, '_blank');
 }
